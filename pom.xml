@@ -14,9 +14,13 @@
         <!-- version for camunda fox related stuff -->
         <fox.version>1.18.4</fox.version>
 
-        <!-- path and version of camunda fox platform -->
-        <jboss.home>${env.JBOSS_HOME}</jboss.home>
+        <!-- version of camunda fox platform -->
         <jboss.version>7.1.0.Final</jboss.version>
+
+        <!-- maven settings -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.6</maven.compiler.source>
+        <maven.compiler.target>1.6</maven.compiler.target>
     </properties>
 
     <dependencies>

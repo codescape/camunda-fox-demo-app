@@ -18,6 +18,8 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static de.codescape.process.TwitterPosting.PROCESS_DEFINITION_FILE;
+import static de.codescape.process.TwitterPosting.PROCESS_DEFINITION_KEY;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -25,7 +27,8 @@ import static org.junit.Assert.assertTrue;
 public class TwitterPostingProcessTest {
 
     private static WebArchive createProcessArchive(String archiveName) {
-        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
+                .loadMetadataFromPom("pom.xml");
         return ShrinkWrap.create(WebArchive.class, archiveName)
                 .addAsManifestResource("ARQUILLIAN-MANIFEST-JBOSS7.MF", "MANIFEST.MF")
                 .addAsWebResource("META-INF/processes.xml", "WEB-INF/classes/META-INF/processes.xml")
@@ -37,7 +40,7 @@ public class TwitterPostingProcessTest {
         return createProcessArchive("twitter-posting-process.war")
                 .addAsResource("META-INF/beans.xml")
                 .addClass(PostTweetDelegate.class)
-                .addAsResource(TwitterPosting.PROCESS_DEFINITION_FILE);
+                .addAsResource(PROCESS_DEFINITION_FILE);
     }
 
     @Inject
@@ -49,7 +52,7 @@ public class TwitterPostingProcessTest {
     @Test
     public void shouldBeAbleToDeployProcessToProcessEngine() {
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionKey(TwitterPosting.PROCESS_DEFINITION_KEY)
+                .processDefinitionKey(PROCESS_DEFINITION_KEY)
                 .singleResult();
         assertNotNull(processDefinition);
     }
@@ -58,7 +61,7 @@ public class TwitterPostingProcessTest {
     public void shouldBeAbleToStartProcessInstanceWithParameters() {
         Map<String, Object> variables = new HashMap<String, Object>();
         variables.put("message", "Hello World");
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(TwitterPosting.PROCESS_DEFINITION_KEY, variables);
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
         assertNotNull(processInstance.getId());
         assertTrue(processInstance.isEnded());
     }
