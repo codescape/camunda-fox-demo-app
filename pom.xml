@@ -55,7 +55,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- jboss api -->
+        <!-- jboss stack of java ee 6 apis -->
         <dependency>
             <groupId>org.jboss.spec</groupId>
             <artifactId>jboss-javaee-web-6.0</artifactId>
@@ -70,7 +70,7 @@
             </exclusions>
         </dependency>
 
-        <!-- jboss remoting -->
+        <!-- arqullian connector to remote jboss -->
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-arquillian-container-remote</artifactId>
