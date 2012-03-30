@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<processArchive>
+    <configuration>
+        <!-- processes should be kept in the engine when process archive is undeployed -->
+        <undeployment delete="false"/>
+    </configuration>
+</processArchive>

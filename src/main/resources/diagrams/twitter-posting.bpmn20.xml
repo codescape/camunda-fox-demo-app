@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             id="sid-21ef4112-ba4d-48c5-ab8b-ba9b7cc5a82c"
+             targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+    <collaboration id="sid-eb262328-1747-4ae3-8ac3-191972156ce7">
+        <participant id="sid-2439024A-135D-418E-BFF5-5CFF4C3B3A1A" name="TwitterPosting" processRef="TwitterPosting"/>
+    </collaboration>
+    <process id="TwitterPosting" isClosed="false" isExecutable="true" name="TwitterPosting" processType="None">
+        <laneSet id="sid-e99b5194-3bc5-4ff9-b6f7-261323095972">
+            <lane id="sid-0517699C-A9FD-4DD3-BFD8-D5CBE4617DC1">
+                <flowNodeRef>sid-2CBC94B0-EC96-4E11-AB7F-2E2443C847FC</flowNodeRef>
+                <flowNodeRef>sid-468FCDAC-AA55-499F-BD1B-908364FFE1F1</flowNodeRef>
+                <flowNodeRef>sid-C7D82E32-D1B7-4E0A-9669-39F1B8A770B0</flowNodeRef>
+            </lane>
+        </laneSet>
+        <startEvent id="sid-2CBC94B0-EC96-4E11-AB7F-2E2443C847FC" name="Received Tweet"/>
+        <serviceTask completionQuantity="1" id="sid-468FCDAC-AA55-499F-BD1B-908364FFE1F1" isForCompensation="false"
+                     name="Post Tweet" startQuantity="1" activiti:delegateExpression="#{postTweetDelegate}">
+            <extensionElements/>
+        </serviceTask>
+        <endEvent id="sid-C7D82E32-D1B7-4E0A-9669-39F1B8A770B0" name="Posted Tweet"/>
+        <sequenceFlow id="sid-51542A94-C144-4244-9D38-6C8A15F79288" name=""
+                      sourceRef="sid-468FCDAC-AA55-499F-BD1B-908364FFE1F1"
+                      targetRef="sid-C7D82E32-D1B7-4E0A-9669-39F1B8A770B0"/>
+        <sequenceFlow id="sid-144EBDFB-950C-450A-91B5-5E6465082D4C" name=""
+                      sourceRef="sid-2CBC94B0-EC96-4E11-AB7F-2E2443C847FC"
+                      targetRef="sid-468FCDAC-AA55-499F-BD1B-908364FFE1F1"/>
+    </process>
+    <bpmndi:BPMNDiagram id="sid-1e9df8f8-4389-4b93-b20c-c7f4cb52e32b">
+        <bpmndi:BPMNPlane bpmnElement="sid-eb262328-1747-4ae3-8ac3-191972156ce7"
+                          id="sid-68783d20-ed48-421a-9a5f-202bb42ed6f4">
+            <bpmndi:BPMNShape bpmnElement="sid-2439024A-135D-418E-BFF5-5CFF4C3B3A1A"
+                              id="sid-2439024A-135D-418E-BFF5-5CFF4C3B3A1A_gui" isHorizontal="true">
+                <omgdc:Bounds height="250.0" width="600.0" x="0" y="0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-0517699C-A9FD-4DD3-BFD8-D5CBE4617DC1"
+                              id="sid-0517699C-A9FD-4DD3-BFD8-D5CBE4617DC1_gui" isHorizontal="true">
+                <omgdc:Bounds height="250.0" width="570.0" x="30" y="0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-2CBC94B0-EC96-4E11-AB7F-2E2443C847FC"
+                              id="sid-2CBC94B0-EC96-4E11-AB7F-2E2443C847FC_gui">
+                <omgdc:Bounds height="30.0" width="30.0" x="115" y="110"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-468FCDAC-AA55-499F-BD1B-908364FFE1F1"
+                              id="sid-468FCDAC-AA55-499F-BD1B-908364FFE1F1_gui">
+                <omgdc:Bounds height="80.0" width="100.0" x="250" y="85"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-C7D82E32-D1B7-4E0A-9669-39F1B8A770B0"
+                              id="sid-C7D82E32-D1B7-4E0A-9669-39F1B8A770B0_gui">
+                <omgdc:Bounds height="28.0" width="28.0" x="485" y="111"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="sid-144EBDFB-950C-450A-91B5-5E6465082D4C"
+                             id="sid-144EBDFB-950C-450A-91B5-5E6465082D4C_gui">
+                <omgdi:waypoint x="145" y="125"/>
+                <omgdi:waypoint x="250" y="125"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="sid-51542A94-C144-4244-9D38-6C8A15F79288"
+                             id="sid-51542A94-C144-4244-9D38-6C8A15F79288_gui">
+                <omgdi:waypoint x="350" y="125"/>
+                <omgdi:waypoint x="485" y="125"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

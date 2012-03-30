@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<processArchive>
+    <configuration>
+        <!-- for testing purposes remove processes from the engine when undeploying the archive -->
+        <undeployment delete="true"/>
+    </configuration>
+</processArchive>
