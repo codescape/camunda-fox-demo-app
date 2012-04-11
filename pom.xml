@@ -12,7 +12,7 @@
 
     <properties>
         <!-- version for camunda fox related stuff -->
-        <fox.version>1.18.4</fox.version>
+        <fox.version>1.19.0</fox.version>
 
         <!-- version of camunda fox platform -->
         <jboss.version>7.1.0.Final</jboss.version>
@@ -23,17 +23,29 @@
         <maven.compiler.target>1.6</maven.compiler.target>
     </properties>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- client adapter to fox engine deployed into the container -->
         <dependency>
-            <groupId>com.camunda.fox</groupId>
+            <groupId>com.camunda.fox.platform</groupId>
             <artifactId>fox-platform-client</artifactId>
             <version>${fox.version}</version>
         </dependency>
 
         <!-- activiti classes to compile against -->
         <dependency>
-            <groupId>com.camunda.fox</groupId>
+            <groupId>com.camunda.fox.engine</groupId>
             <artifactId>fox-engine</artifactId>
             <version>${fox.version}</version>
             <scope>provided</scope>
@@ -80,10 +92,10 @@
     </dependencies>
 
     <repositories>
-        <!-- repository for camunda fox related stuff (needs username and password in settings.xml) -->
+        <!-- repository for camunda fox community edition -->
         <repository>
-            <id>camunda-fox-enterprise</id>
-            <url>https://fox.camunda.com/enterprise/mvn/</url>
+            <id>camunda-fox-community-edition</id>
+            <url>https://app.camunda.com/nexus/content/repositories/fox-ce/</url>
         </repository>
     </repositories>
 

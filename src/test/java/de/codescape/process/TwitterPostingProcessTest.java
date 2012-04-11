@@ -32,7 +32,7 @@ public class TwitterPostingProcessTest {
         return ShrinkWrap.create(WebArchive.class, archiveName)
                 .addAsManifestResource("ARQUILLIAN-MANIFEST-JBOSS7.MF", "MANIFEST.MF")
                 .addAsWebResource("META-INF/processes.xml", "WEB-INF/classes/META-INF/processes.xml")
-                .addAsLibraries(resolver.artifact("com.camunda.fox:fox-platform-client").resolveAsFiles());
+                .addAsLibraries(resolver.artifact("com.camunda.fox.platform:fox-platform-client").resolveAsFiles());
     }
 
     @Deployment
