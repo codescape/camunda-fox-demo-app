@@ -1,8 +1,7 @@
-package de.codescape.process;
+package de.codescape.process.book;
 
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
-import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -15,16 +14,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
-import java.util.HashMap;
-import java.util.Map;
 
-import static de.codescape.process.TwitterPosting.PROCESS_DEFINITION_FILE;
-import static de.codescape.process.TwitterPosting.PROCESS_DEFINITION_KEY;
+import static de.codescape.process.book.BookWriting.PROCESS_DEFINITION_FILE;
+import static de.codescape.process.book.BookWriting.PROCESS_DEFINITION_KEY;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(Arquillian.class)
-public class TwitterPostingProcessTest {
+public class BookWritingProcessTest {
 
     private static WebArchive createProcessArchive(String archiveName) {
         MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class)
@@ -37,9 +34,10 @@ public class TwitterPostingProcessTest {
 
     @Deployment
     public static Archive<?> deployProcessArchive() {
-        return createProcessArchive("twitter-posting-process.war")
+        return createProcessArchive("book-writing-process.war")
                 .addAsResource("META-INF/beans.xml")
-                .addClass(PostTweetDelegate.class)
+                .addClass(WriteBookDelegate.class)
+                .addClass(PrintChapterDelegate.class)
                 .addAsResource(PROCESS_DEFINITION_FILE);
     }
 
@@ -50,18 +48,8 @@ public class TwitterPostingProcessTest {
     public RepositoryService repositoryService;
 
     @Test
-    public void shouldBeAbleToDeployProcessToProcessEngine() {
-        ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
-                .processDefinitionKey(PROCESS_DEFINITION_KEY)
-                .singleResult();
-        assertNotNull(processDefinition);
-    }
-
-    @Test
-    public void shouldBeAbleToStartProcessInstanceWithParameters() {
-        Map<String, Object> variables = new HashMap<String, Object>();
-        variables.put("message", "Hello World");
-        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+    public void shouldBeAbleToPrintTheWholeWrittenBook() {
+        ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
         assertNotNull(processInstance.getId());
         assertTrue(processInstance.isEnded());
     }

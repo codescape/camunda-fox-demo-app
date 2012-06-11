@@ -1,4 +1,4 @@
-package de.codescape.process;
+package de.codescape.process.twitter;
 
 public class TwitterPosting {
 
@@ -6,6 +6,6 @@ public class TwitterPosting {
     public static final String PROCESS_DEFINITION_KEY = "TwitterPosting";
 
     /* path to the diagram file relative to the project classpath */
-    public static final String PROCESS_DEFINITION_FILE = "diagrams/twitter-posting.bpmn20.xml";
+    public static final String PROCESS_DEFINITION_FILE = "diagrams/twitter-posting.bpmn";
 
 }

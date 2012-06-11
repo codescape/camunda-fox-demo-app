@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             expressionLanguage="http://www.w3.org/1999/XPath"
+             id="sid-21ef4112-ba4d-48c5-ab8b-ba9b7cc5a82c"
+             targetNamespace="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             typeLanguage="http://www.w3.org/2001/XMLSchema"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+    <process id="BookWriting" isExecutable="true">
+        <startEvent id="sid-2F89DCD9-771B-4CB3-9AEC-E24F074DA478" name="Inspirational thoughts">
+            <outgoing>sid-C8C30823-0619-47F8-B3D5-A198348F0E81</outgoing>
+        </startEvent>
+        <serviceTask completionQuantity="1" id="sid-E9C59977-61A4-402C-AFCC-08666DFC52E4" implementation="webService"
+                     isForCompensation="false" name="Write a book" startQuantity="1" activiti:delegateExpression="#{writeBookDelegate}">
+            <incoming>sid-C8C30823-0619-47F8-B3D5-A198348F0E81</incoming>
+            <outgoing>sid-A4E8F4F9-2CD6-4E6E-A4DB-F617EEF21FF1</outgoing>
+        </serviceTask>
+        <subProcess completionQuantity="1" id="PrintChapter" isForCompensation="false"
+                    name="Print chapter" startQuantity="1" triggeredByEvent="false">
+            <incoming>sid-A4E8F4F9-2CD6-4E6E-A4DB-F617EEF21FF1</incoming>
+            <outgoing>sid-1DC1F4A8-2D46-4000-9E30-BC67C3073082</outgoing>
+            <multiInstanceLoopCharacteristics behavior="All" id="sid-9544c364-79f2-43e1-8db2-589d83e031de"
+                                              isSequential="false" activiti:collection="${book}" activiti:elementVariable="chapter"/>
+            <startEvent id="sid-7B90FA05-C21C-4F08-BAC5-6C5B8A76A737" name="Print chapter">
+                <outgoing>sid-F30A2A19-C2EF-40E9-92CD-B179EFEA70E1</outgoing>
+            </startEvent>
+            <serviceTask completionQuantity="1" id="sid-768FD0DD-0F78-425F-A48B-474B5A91B8DF"
+                         implementation="webService" isForCompensation="false" name="Print all pages" startQuantity="1" activiti:delegateExpression="#{printChapterDelegate}">
+                <incoming>sid-F30A2A19-C2EF-40E9-92CD-B179EFEA70E1</incoming>
+                <outgoing>sid-F6FE11EF-3FB8-4EB5-BE54-D50D2710C330</outgoing>
+            </serviceTask>
+            <endEvent id="sid-E3F8FA31-40BF-4D14-BBD1-415F6785F0A0" name="Finished printing chapter">
+                <incoming>sid-F6FE11EF-3FB8-4EB5-BE54-D50D2710C330</incoming>
+            </endEvent>
+            <sequenceFlow id="sid-F30A2A19-C2EF-40E9-92CD-B179EFEA70E1" name=""
+                          sourceRef="sid-7B90FA05-C21C-4F08-BAC5-6C5B8A76A737"
+                          targetRef="sid-768FD0DD-0F78-425F-A48B-474B5A91B8DF"/>
+            <sequenceFlow id="sid-F6FE11EF-3FB8-4EB5-BE54-D50D2710C330" name=""
+                          sourceRef="sid-768FD0DD-0F78-425F-A48B-474B5A91B8DF"
+                          targetRef="sid-E3F8FA31-40BF-4D14-BBD1-415F6785F0A0"/>
+        </subProcess>
+        <endEvent id="sid-FB963D66-5AEB-478B-8C26-02C78BEA86DA" name="Happy readers">
+            <incoming>sid-1DC1F4A8-2D46-4000-9E30-BC67C3073082</incoming>
+        </endEvent>
+        <sequenceFlow id="sid-C8C30823-0619-47F8-B3D5-A198348F0E81" name=""
+                      sourceRef="sid-2F89DCD9-771B-4CB3-9AEC-E24F074DA478"
+                      targetRef="sid-E9C59977-61A4-402C-AFCC-08666DFC52E4"/>
+        <sequenceFlow id="sid-A4E8F4F9-2CD6-4E6E-A4DB-F617EEF21FF1" name=""
+                      sourceRef="sid-E9C59977-61A4-402C-AFCC-08666DFC52E4"
+                      targetRef="PrintChapter"/>
+        <sequenceFlow id="sid-1DC1F4A8-2D46-4000-9E30-BC67C3073082" name=""
+                      sourceRef="PrintChapter"
+                      targetRef="sid-FB963D66-5AEB-478B-8C26-02C78BEA86DA"/>
+    </process>
+    <bpmndi:BPMNDiagram id="sid-cca7f6e6-f343-4faf-95a8-03427661fc95">
+        <bpmndi:BPMNPlane bpmnElement="BookWriting"
+                          id="sid-549efd82-b3b6-4b52-8e3a-379ab6948d34">
+            <bpmndi:BPMNShape bpmnElement="sid-2F89DCD9-771B-4CB3-9AEC-E24F074DA478"
+                              id="sid-2F89DCD9-771B-4CB3-9AEC-E24F074DA478_gui">
+                <omgdc:Bounds height="30.0" width="30.0" x="120.0" y="150.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-E9C59977-61A4-402C-AFCC-08666DFC52E4"
+                              id="sid-E9C59977-61A4-402C-AFCC-08666DFC52E4_gui">
+                <omgdc:Bounds height="80.0" width="100.0" x="235.0" y="125.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="PrintChapter"
+                              id="PrintChapter_gui" isExpanded="false">
+                <omgdc:Bounds height="80.0" width="100.0" x="420.0" y="125.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-FB963D66-5AEB-478B-8C26-02C78BEA86DA"
+                              id="sid-FB963D66-5AEB-478B-8C26-02C78BEA86DA_gui">
+                <omgdc:Bounds height="28.0" width="28.0" x="585.0" y="151.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="sid-A4E8F4F9-2CD6-4E6E-A4DB-F617EEF21FF1"
+                             id="sid-A4E8F4F9-2CD6-4E6E-A4DB-F617EEF21FF1_gui">
+                <omgdi:waypoint x="335.0" y="165.0"/>
+                <omgdi:waypoint x="420.0" y="165.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="sid-1DC1F4A8-2D46-4000-9E30-BC67C3073082"
+                             id="sid-1DC1F4A8-2D46-4000-9E30-BC67C3073082_gui">
+                <omgdi:waypoint x="520.0" y="165.0"/>
+                <omgdi:waypoint x="585.0" y="165.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="sid-C8C30823-0619-47F8-B3D5-A198348F0E81"
+                             id="sid-C8C30823-0619-47F8-B3D5-A198348F0E81_gui">
+                <omgdi:waypoint x="150.0" y="165.0"/>
+                <omgdi:waypoint x="235.0" y="165.0"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+    <bpmndi:BPMNDiagram id="sid-d95bd5bc-6315-4d79-8625-a3560c90df88">
+        <bpmndi:BPMNPlane bpmnElement="PrintChapter"
+                          id="sid-b497beb5-8ec2-4d03-ae28-9e1ed8f29541">
+            <bpmndi:BPMNShape bpmnElement="sid-7B90FA05-C21C-4F08-BAC5-6C5B8A76A737"
+                              id="sid-7B90FA05-C21C-4F08-BAC5-6C5B8A76A737_gui">
+                <omgdc:Bounds height="30.0" width="30.0" x="90.0" y="105.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-768FD0DD-0F78-425F-A48B-474B5A91B8DF"
+                              id="sid-768FD0DD-0F78-425F-A48B-474B5A91B8DF_gui">
+                <omgdc:Bounds height="80.0" width="100.0" x="195.0" y="80.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNShape bpmnElement="sid-E3F8FA31-40BF-4D14-BBD1-415F6785F0A0"
+                              id="sid-E3F8FA31-40BF-4D14-BBD1-415F6785F0A0_gui">
+                <omgdc:Bounds height="28.0" width="28.0" x="380.0" y="106.0"/>
+            </bpmndi:BPMNShape>
+            <bpmndi:BPMNEdge bpmnElement="sid-F30A2A19-C2EF-40E9-92CD-B179EFEA70E1"
+                             id="sid-F30A2A19-C2EF-40E9-92CD-B179EFEA70E1_gui">
+                <omgdi:waypoint x="120.0" y="120.0"/>
+                <omgdi:waypoint x="195.0" y="120.0"/>
+            </bpmndi:BPMNEdge>
+            <bpmndi:BPMNEdge bpmnElement="sid-F6FE11EF-3FB8-4EB5-BE54-D50D2710C330"
+                             id="sid-F6FE11EF-3FB8-4EB5-BE54-D50D2710C330_gui">
+                <omgdi:waypoint x="295.0" y="120.0"/>
+                <omgdi:waypoint x="380.0" y="120.0"/>
+            </bpmndi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>
+
