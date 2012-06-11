@@ -12,7 +12,7 @@
 
     <properties>
         <!-- version for camunda fox related stuff -->
-        <fox.version>1.19.0</fox.version>
+        <fox.version>1.23.0</fox.version>
 
         <!-- version of camunda fox platform -->
         <jboss.version>7.1.0.Final</jboss.version>
@@ -63,7 +63,7 @@
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.0.0.CR7</version>
+            <version>1.0.0.Final</version>
             <scope>test</scope>
         </dependency>
 
