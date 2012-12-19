@@ -5,7 +5,6 @@ Currently the following demos are included to show different aspects of Activiti
 * TwitterPosting
   * minimalistic demo
   * java delegates
-
 * BookWriting
   * sub processes
   * java delegates
